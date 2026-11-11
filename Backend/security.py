@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "development-only-change-this-secret")
 ALGORITHM = "HS256"
 TOKEN_MINUTES = int(os.getenv("ACCESS_TOKEN_MINUTES", "120"))
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2 = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
+oauth2 = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token")
 
 def hash_password(password): return pwd.hash(password)
 def verify_password(password, hashed): return pwd.verify(password, hashed)
