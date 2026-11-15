@@ -10,7 +10,10 @@ from .database import get_db
 from .models import User
 
 load_dotenv()
-SECRET_KEY = os.getenv("SECRET_KEY", "development-only-change-this-secret")
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY is missing from environment")
 ALGORITHM = "HS256"
 TOKEN_MINUTES = int(os.getenv("ACCESS_TOKEN_MINUTES", "120"))
 pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
