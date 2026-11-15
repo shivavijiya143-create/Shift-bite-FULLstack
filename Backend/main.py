@@ -14,11 +14,19 @@ from .security import hash_password, verify_password, create_token, current_user
 Base.metadata.create_all(bind=engine)
 app = FastAPI(title="ShiftBite API", version="2.0.0",
               description="Interconnected food delivery platform with four user portals.")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
-    allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://shiftbite.vercel.app",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 V1 = "/api/v1"
 ROLES = ("admin", "customer", "restaurant_owner", "delivery_partner")
 
