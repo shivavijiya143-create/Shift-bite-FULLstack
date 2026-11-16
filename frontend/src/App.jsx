@@ -932,6 +932,11 @@ function App() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  
+  // Restaurant registration fields
+const [restaurantName, setRestaurantName] = useState("");
+const [address, setAddress] = useState("");
+const [cuisine, setCuisine] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -1316,28 +1321,100 @@ function App() {
               })}
             </div>
 
-            <form onSubmit={modal === "register" ? handleRegister : handleLogin}>
-              {modal === "register" && <>
-                <label htmlFor="full-name">Full name</label>
-                <input id="full-name" value={name} onChange={(event) => setName(event.target.value)} placeholder="Enter your full name" required />
-                <label htmlFor="phone">Phone number</label>
-                <input id="phone" type="tel" value={phone} onChange={(event) => setPhone(event.target.value)} placeholder="Enter your phone number" />
-              </>}
-              <label htmlFor="email">Email address</label>
-              <input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" autoComplete="email" required />
-              <label htmlFor="password">Password</label>
-              <div className="password-field">
-                <input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter your password" autoComplete={modal === "register" ? "new-password" : "current-password"} required />
-                <button type="button" className="password-toggle" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff size={17} /> : <Eye size={17} />}</button>
-              </div>
+          
+<form onSubmit={modal === "register" ? handleRegister : handleLogin}>
+  {modal === "register" && <>
+    <label htmlFor="full-name">Full name</label>
+    <input
+      id="full-name"
+      value={name}
+      onChange={(event) => setName(event.target.value)}
+      placeholder="Enter your full name"
+      required
+    />
 
-              {error && <p className="form-error">{error}</p>}
-              {notice && <p className="form-notice">{notice}</p>}
-              <button className="gold-button form-submit" type="submit" disabled={loading}>
-                {loading ? "Please wait..." : modal === "register" ? "Create account" : "Sign in"}
-                {!loading && <ArrowRight size={17} />}
-              </button>
-            </form>
+    <label htmlFor="phone">Phone number</label>
+    <input
+      id="phone"
+      type="tel"
+      value={phone}
+      onChange={(event) => setPhone(event.target.value)}
+      placeholder="Enter your phone number"
+    />
+
+    {selectedRole === "restaurant_owner" && <>
+      <label htmlFor="restaurant-name">Restaurant name</label>
+      <input
+        id="restaurant-name"
+        value={restaurantName}
+        onChange={(e) => setRestaurantName(e.target.value)}
+        placeholder="Enter restaurant name"
+        required
+      />
+
+      <label htmlFor="restaurant-address">Restaurant address</label>
+      <input
+        id="restaurant-address"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+        placeholder="Enter restaurant address"
+        required
+      />
+
+      <label htmlFor="cuisine">Cuisine</label>
+      <input
+        id="cuisine"
+        value={cuisine}
+        onChange={(e) => setCuisine(e.target.value)}
+        placeholder="Enter cuisine type"
+        required
+      />
+    </>}
+  </>}
+
+  <label htmlFor="email">Email address</label>
+  <input
+    id="email"
+    type="email"
+    value={email}
+    onChange={(event) => setEmail(event.target.value)}
+    placeholder="you@example.com"
+    autoComplete="email"
+    required
+  />
+
+  <label htmlFor="password">Password</label>
+  <div className="password-field">
+    <input
+      id="password"
+      type={showPassword ? "text" : "password"}
+      value={password}
+      onChange={(event) => setPassword(event.target.value)}
+      placeholder="Enter your password"
+      autoComplete={modal === "register" ? "new-password" : "current-password"}
+      required
+    />
+    <button
+      type="button"
+      className="password-toggle"
+      onClick={() => setShowPassword(!showPassword)}
+      aria-label={showPassword ? "Hide password" : "Show password"}
+    >
+      {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+    </button>
+  </div>
+
+  {error && <p className="form-error">{error}</p>}
+  {notice && <p className="form-notice">{notice}</p>}
+
+  <button className="gold-button form-submit" type="submit" disabled={loading}>
+    {loading ? "Please wait..." : modal === "register" ? "Create account" : "Sign in"}
+    {!loading && <ArrowRight size={17} />}
+  </button>
+</form>
+
+
+             
 
             <p className="modal-switch">
               {modal === "register" ? "Already have an account?" : "New to ShiftBite?"}
